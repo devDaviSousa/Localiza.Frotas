@@ -1,10 +1,13 @@
 using Localiza.Frotas.Domain;
+using Localiza.Frotas.Infra.EF;
 using Localiza.Frotas.Infra.Repository;
+using Localiza.Frotas.Infra.Repository.EF;
 using Localiza.Frotas.Infra.Singleton;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,8 +40,17 @@ namespace Localiza.Frotas
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Localiza.Frotas", Version = "v1" });
             });
+            //Singleton
             services.AddSingleton<SingletonContainer>();
-            services.AddSingleton<IVeiculoRepository, InMemoryRepository>();
+
+            //Entity Framework
+            services.AddTransient<IVeiculoRepository, FrotaRepository>();
+            
+            services.AddDbContext<FrotaContext>(opt =>
+                                               opt.UseInMemoryDatabase("Frota"));
+
+            //InMemory
+            //services.AddSingleton<IVeiculoRepository, InMemoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

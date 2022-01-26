@@ -8,7 +8,7 @@ namespace Localiza.Frotas.Infra.Repository
     public class InMemoryRepository : IVeiculoRepository
     {
         private readonly IList<Veiculo> entities = new List<Veiculo>();
-        public void Add(Veiculo veiculo)
+        public void Add(Veiculo veiculo) 
         {
             entities.Add(veiculo);
         }

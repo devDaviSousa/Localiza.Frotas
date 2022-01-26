@@ -14,6 +14,7 @@ namespace Localiza.Frotas.Controllers
         {
             this.singletonContainer=singletonContainer;
         }
+
         [HttpGet()]
        public IActionResult Get()
         {
